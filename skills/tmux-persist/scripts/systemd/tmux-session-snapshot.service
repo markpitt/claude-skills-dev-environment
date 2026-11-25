@@ -1,0 +1,6 @@
+[Unit]
+Description=Save the tmux session layout
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/tmux-session snapshot

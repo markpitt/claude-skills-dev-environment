@@ -1,0 +1,13 @@
+[Unit]
+Description=Restore tmux sessions from the last snapshot (and save them on stop)
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+# The tmux server started by restore lives in this unit's cgroup; keep it when the unit is stopped.
+KillMode=process
+ExecStart=%h/.local/bin/tmux-session restore
+ExecStop=-%h/.local/bin/tmux-session snapshot
+
+[Install]
+WantedBy=default.target
