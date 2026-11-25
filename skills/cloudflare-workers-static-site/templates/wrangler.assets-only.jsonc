@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  // Becomes <name>.<account-subdomain>.workers.dev. Lower case and hyphens only.
+  "name": "<worker-name>",
+  "compatibility_date": "<YYYY-MM-DD>",
+  // No "main": there is no Worker script, so every request is a free static asset.
+  "assets": {
+    // The build output folder, relative to this file.
+    "directory": "./dist",
+    // "404-page" for multi-page sites, "single-page-application" for SPAs.
+    "not_found_handling": "404-page"
+  },
+  "observability": { "enabled": true }
+}

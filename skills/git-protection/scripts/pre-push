@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Global pre-push (core.hooksPath): never rewrite published history.
+# Refuses any push that is not a fast-forward of the remote ref (force pushes,
+# --force-with-lease, +refspec, moved tags). Creating a ref is fine; deleting one is allowed.
+# Then runs the repository's own .git/hooks/pre-push, if it has one (core.hooksPath replaces
+# the per-repo hooks directory, so they have to be chained here).
+# `git push --no-verify` skips all hooks, so pair this with an instruction not to use it and with
+# server-side branch protection (see SKILL.md).
+set -u
+input=$(cat)
+bad=0
+while read -r lref lsha rref rsha; do
+  [ -n "${lref:-}" ] || continue
+  [[ $lsha =~ ^0+$ ]] && continue    # deleting a remote ref
+  [[ $rsha =~ ^0+$ ]] && continue    # creating a remote ref
+  if ! git merge-base --is-ancestor "$rsha" "$lsha" 2>/dev/null; then
+    echo "pre-push: refusing non-fast-forward push of '$lref' to '$rref'." >&2
+    echo "  Remote is at ${rsha:0:12}, local is ${lsha:0:12}, which does not contain it." >&2
+    echo "  History is never rewritten here. Fetch and merge/rebase LOCAL work, or fix forward with a new commit or revert." >&2
+    bad=1
+  fi
+done <<<"$input"
+[ "$bad" = 0 ] || exit 1
+
+self=$(readlink -f "$0")
+local_hook="$(git rev-parse --git-common-dir)/hooks/pre-push"
+if [ -x "$local_hook" ] && [ "$(readlink -f "$local_hook")" != "$self" ]; then
+  exec "$local_hook" "$@" <<<"$input"
+fi
+exit 0
