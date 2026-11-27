@@ -2,10 +2,10 @@
 
 # tmux-persist
 
-Keep tmux sessions across reboots on any Linux machine. Saves every session/window/pane layout (cwd + foreground command) every 5 min and at stop, and rebuilds them at boot via systemd user units. Use when asked to set up tmux persistence on a new server, check or repair it, add a program to the re-run allowlist, or recover tmux sessions after a reboot.
+Keeps tmux sessions across reboots on any Linux machine. Saves every session, window and pane layout (working directory and foreground command) every five minutes and at shutdown, and rebuilds them at boot through systemd user units. Use when asked to set up tmux persistence on a new server, check or repair it, add a program to the re-run allowlist, or recover tmux sessions after a reboot. Do NOT use for zellij (use zellij), for recovering an agent's interrupted work after a crash (use resume-after-crash), or for general tmux key bindings and configuration.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 1.0.3
+- **Version:** 1.1.0
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -30,4 +30,4 @@ Loaded on demand, not up front. SKILL.md routes to them.
 ## Part of a larger set
 
 One of the Developer environment skills (`claude-skills-dev-environment`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

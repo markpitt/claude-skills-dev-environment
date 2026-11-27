@@ -1,9 +1,9 @@
 ---
 name: cloudflare-workers-static-site
-description: Deploy a static site (Astro, Vite, Hugo, Eleventy, plain HTML) from a GitHub repo to Cloudflare Workers static assets, with GitHub Actions doing build, check and deploy on push to main. Use when a repo or monorepo subfolder holds a static or mostly static site that should go live on Cloudflare, or when moving a site off Cloudflare Pages or GitHub Pages. Do NOT use for Cloudflare Pages (`wrangler pages deploy`) or for server-rendered apps that need a framework adapter.
+description: Deploys a static site (Astro, Vite, Hugo, Eleventy, plain HTML) from a GitHub repo to Cloudflare Workers static assets, with GitHub Actions doing build, check and deploy on push to main. Use when a repo or monorepo subfolder holds a static or mostly static site that should go live on Cloudflare, or when moving a site off Cloudflare Pages or GitHub Pages. Do NOT use for Cloudflare Pages (`wrangler pages deploy`) or for server-rendered apps that need a framework adapter.
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
 ---
 
 # Deploy a static site to Cloudflare Workers from GitHub

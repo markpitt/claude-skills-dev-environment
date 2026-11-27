@@ -31,7 +31,7 @@ RUN npm run build
 
 ```dockerfile
 # ❌ Bad — copying source early invalidates dependency cache
-FROM node:20
+FROM node:24
 COPY . .                   # Any source change invalidates everything below
 RUN npm ci                 # Always re-runs
 ```
@@ -69,20 +69,20 @@ Separate build and runtime stages to reduce final image size and improve cacheab
 
 ```dockerfile
 # Stage 1 — build dependencies (cacheable)
-FROM node:20-alpine AS deps
+FROM node:24-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --only=production
 
 # Stage 2 — build application
-FROM node:20-alpine AS builder
+FROM node:24-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
 # Stage 3 — minimal runtime image
-FROM node:20-alpine AS runner
+FROM node:24-alpine AS runner
 WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=deps /app/node_modules ./node_modules
@@ -182,7 +182,7 @@ jobs:
 
 ### Embedding Metadata in the Image
 
-When using `devcontainers/ci`, metadata (extensions, settings, lifecycle scripts) is automatically embedded as image labels. The image becomes self-contained — tools apply settings automatically when the image is pulled.
+When using `devcontainers/ci`, metadata (extensions, settings, lifecycle scripts) is automatically embedded as image labels. The image becomes self-contained: tools apply settings automatically when the image is pulled.
 
 ---
 
@@ -209,7 +209,7 @@ On macOS and Windows, bind mounts pass through a virtualisation layer and are sl
 
 ### Virtio-fs (Docker Desktop macOS/Windows)
 
-Enable in **Docker Desktop → Settings → General → VirtioFS** (Virtual File Sharing). Provides up to 2–10× faster bind mount performance vs default gRPC-FUSE.
+Enable in **Docker Desktop → Settings → General → VirtioFS** (Virtual File Sharing). Provides up to 2 to 10× faster bind mount performance vs default gRPC-FUSE.
 
 Requires Docker Desktop 4.6+ on macOS.
 
@@ -231,7 +231,7 @@ Docker Desktop's **Synchronized File Shares** feature maintains a synchronised c
 
 The `mcr.microsoft.com/devcontainers/*` images include a pre-configured `vscode` user. Other images may use `node`, `python`, `app`, etc.
 
-**Never develop as `root`** — even inside a container, running as root exposes the host if there are container escape vulnerabilities.
+**Never develop as `root`**: even inside a container, running as root exposes the host if there are container escape vulnerabilities.
 
 ### UID/GID Mapping (Linux Hosts)
 
@@ -244,7 +244,7 @@ On Linux, the container user's UID must match the host user's UID to avoid bind 
 }
 ```
 
-If you see files owned by `root` after the container writes to a bind-mounted directory, ensure `updateRemoteUserUID` is `true`.
+If you see files owned by `root` after the container writes to a bind-mounted directory, make sure `updateRemoteUserUID` is `true`.
 
 ### Running as a Specific UID
 

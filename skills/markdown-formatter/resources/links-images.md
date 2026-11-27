@@ -75,7 +75,7 @@ For details, see [1].
 [1]: https://example.com
 ```
 
-### Organizing References
+### Organising References
 
 ```markdown
 # My Document
@@ -134,7 +134,7 @@ Alt text should be:
 [logo-img]: /assets/logo.png
 ```
 
-Some markdown flavors support sizing. Check your platform.
+Some markdown flavours support sizing. Check your platform.
 
 ### Image Links
 

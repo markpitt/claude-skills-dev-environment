@@ -1,9 +1,9 @@
 ---
 name: atomic-commit-organiser
-description: Turn a dirty working tree, or several repositories at once, into commits grouped by intent, staging explicit paths and hunks only and never a blanket add. Use when asked to commit everything in logical pieces, split one large change into atomic commits, tidy a messy index, sweep several repositories for uncommitted work, or leave named files or repositories out of a commit. Do NOT use for blocking force pushes or setting push rules (use git-protection), for drafting a message for one finished change, or for resolving merge conflicts.
+description: Turns a dirty working tree, or several repositories at once, into commits grouped by intent, staging explicit paths and hunks only and never a blanket add. Use when asked to commit everything in logical pieces, split one large change into atomic commits, tidy a messy index, sweep several repositories for uncommitted work, or leave named files or repositories out of a commit. Do NOT use for blocking force pushes or setting push rules (use git-protection), for drafting a message for one finished change, or for resolving merge conflicts.
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   tags: "git, commits, atomic-commits, staging, conventional-commits, multi-repo, workflow"
 ---
 

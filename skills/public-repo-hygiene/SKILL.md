@@ -1,9 +1,9 @@
 ---
 name: public-repo-hygiene
-description: Make a private working repository safe to publish. Gitignore agent and local-state directories, move internal documents to a separate private repository, triage gitleaks findings as real or false positive, rewrite history with git filter-repo, then verify with a fresh clone and a re-scan. Use when a spike or project is about to go public, when agent state or internal notes are found in a repository's history, or when gitleaks reports findings before publication. Do NOT use to rewrite or force-push a repository without the operator's explicit request for that rewrite (git-protection governs that hand-off), to resolve merge conflicts, to write commit messages, or to set up CI scanning (use git-protection for hooks and branch protection).
+description: Makes a private working repository safe to publish. Gitignores agent and local-state directories, moves internal documents to a separate private repository, triages gitleaks findings as real or false positive, rewrites history with git filter-repo, then verifies with a fresh clone and a re-scan. Use when a spike or project is about to go public, when agent state or internal notes are found in a repository's history, or when gitleaks reports findings before publication. Do NOT use to rewrite or force-push a repository without the operator's explicit request for that rewrite (git-protection governs that hand-off), to resolve merge conflicts, to write commit messages, or to set up CI scanning (use git-protection for hooks and branch protection).
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   tags: "git, publishing, secrets, gitleaks, filter-repo, history-rewrite, gitignore, open-source, hygiene"
 ---
 

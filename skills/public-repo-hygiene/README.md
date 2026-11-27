@@ -2,10 +2,10 @@
 
 # public-repo-hygiene
 
-Make a private working repository safe to publish. Gitignore agent and local-state directories, move internal documents to a separate private repository, triage gitleaks findings as real or false positive, rewrite history with git filter-repo, then verify with a fresh clone and a re-scan. Use when a spike or project is about to go public, when agent state or internal notes are found in a repository's history, or when gitleaks reports findings before publication. Do NOT use to rewrite or force-push a repository without the operator's explicit request for that rewrite (git-protection governs that hand-off), to resolve merge conflicts, to write commit messages, or to set up CI scanning (use git-protection for hooks and branch protection).
+Makes a private working repository safe to publish. Gitignores agent and local-state directories, moves internal documents to a separate private repository, triages gitleaks findings as real or false positive, rewrites history with git filter-repo, then verifies with a fresh clone and a re-scan. Use when a spike or project is about to go public, when agent state or internal notes are found in a repository's history, or when gitleaks reports findings before publication. Do NOT use to rewrite or force-push a repository without the operator's explicit request for that rewrite (git-protection governs that hand-off), to resolve merge conflicts, to write commit messages, or to set up CI scanning (use git-protection for hooks and branch protection).
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 1.0.0
+- **Version:** 1.0.1
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -23,4 +23,4 @@ Settings, Capabilities, Skills. Released builds attach a ready-made zip.
 ## Part of a larger set
 
 One of the Developer environment skills (`claude-skills-dev-environment`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

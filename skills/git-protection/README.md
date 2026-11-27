@@ -2,10 +2,10 @@
 
 # git-protection
 
-Stop force pushes and history rewrites from a machine with a global git pre-push hook, and set the matching agent rules (commit small and often, ask before pushing, fix forward). Use when asked to protect git history, block force pushes, set up or check a pre-push hook, add commit and push rules for coding agents, or when a push is refused with "non-fast-forward". Do NOT use for resolving merge conflicts, writing commit messages, organising a dirty tree into commits (use atomic-commit-organiser), scrubbing a repository for publication (use public-repo-hygiene) or configuring CI.
+Stops force pushes and history rewrites from a machine with a global git pre-push hook, and sets the matching agent rules (commit small and often, ask before pushing, fix forward). Use when asked to protect git history, block force pushes, set up or check a pre-push hook, add commit and push rules for coding agents, or when a push is refused with "non-fast-forward". Do NOT use for resolving merge conflicts, writing commit messages, organising a dirty tree into commits (use atomic-commit-organiser), scrubbing a repository for publication (use public-repo-hygiene) or configuring CI.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 1.1.0
+- **Version:** 1.1.1
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -32,4 +32,4 @@ Loaded on demand, not up front. SKILL.md routes to them.
 ## Part of a larger set
 
 One of the Developer environment skills (`claude-skills-dev-environment`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

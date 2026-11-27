@@ -2,10 +2,10 @@
 
 # wsl-host-ops
 
-Operate a WSL2 distribution from both sides of the boundary. Size and move a VHDX against the physical disk, compact it after space is freed, attach an extra VHDX for model storage under /mnt/wsl with a UUID mount, check GPU passthrough (the CUDA and NVML libraries sit in /usr/lib/wsl/lib, where nvidia-smi is not on PATH by default), enable systemd --user with linger, and reclaim Docker space after checking what must be kept. Use when a WSL disk is filling or a VHDX must grow, move or shrink, when a second disk is needed for models, when the GPU is not visible inside WSL, when user services stop after the last login, or when Docker has filled the distribution. Do NOT use for crash recovery of an interrupted agent (use resume-after-crash), for choosing or serving local models (use local-llm-serving), for native Linux disk or LVM work, or for installing Windows GPU drivers.
+Operates a WSL2 distribution from both sides of the boundary. Sizes and moves a VHDX against the physical disk, compacts it after space is freed, attaches an extra VHDX for model storage under /mnt/wsl with a UUID mount, checks GPU passthrough (the CUDA and NVML libraries sit in /usr/lib/wsl/lib, where nvidia-smi is not on PATH by default), enables systemd --user with linger, and reclaims Docker space after checking what must be kept. Use when a WSL disk is filling or a VHDX must grow, move or shrink, when a second disk is needed for models, when the GPU is not visible inside WSL, when user services stop after the last login, or when Docker has filled the distribution. Do NOT use for crash recovery of an interrupted agent (use resume-after-crash), for choosing or serving local models (use local-llm-serving), for native Linux disk or LVM work, or for installing Windows GPU drivers.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 1.0.0
+- **Version:** 1.0.1
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -23,4 +23,4 @@ Settings, Capabilities, Skills. Released builds attach a ready-made zip.
 ## Part of a larger set
 
 One of the Developer environment skills (`claude-skills-dev-environment`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

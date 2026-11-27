@@ -2,10 +2,10 @@
 
 # internal-ca-trust
 
-Make containers, language runtimes and headless browsers trust a private certificate authority (step-ca or any internal root) so they can reach internal HTTPS services, without dropping the public roots. Covers fetching and fingerprinting the root, the system store for root and non-root images, Python (requests, certifi, httpx, aiohttp), Node, git and curl variables, Chromium and Playwright, ACME clients such as Traefik's lego, and the checks that prove it worked. Use when a container or tool fails with "certificate verify failed", "unable to get local issuer certificate" or "self-signed certificate in certificate chain" against an internal hostname, or when a stack must start calling internal HTTPS services. Do NOT use to run or configure the CA itself (issuing, provisioners, renewal), for public certificates from Let's Encrypt (use traefik-lan-routes), or to switch TLS verification off.
+Makes containers, language runtimes and headless browsers trust a private certificate authority (step-ca or any internal root) so they can reach internal HTTPS services, without dropping the public roots. Covers fetching and fingerprinting the root, the system store for root and non-root images, Python (requests, certifi, httpx, aiohttp), Node, git and curl variables, Chromium and Playwright, ACME clients such as Traefik's lego, and the checks that prove it worked. Use when a container or tool fails with "certificate verify failed", "unable to get local issuer certificate" or "self-signed certificate in certificate chain" against an internal hostname, or when a stack must start calling internal HTTPS services. Do NOT use to run or configure the CA itself (issuing, provisioners, renewal), for public certificates from Let's Encrypt (use traefik-lan-routes), or to switch TLS verification off.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 1.0.0
+- **Version:** 1.0.1
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -23,4 +23,4 @@ Settings, Capabilities, Skills. Released builds attach a ready-made zip.
 ## Part of a larger set
 
 One of the Developer environment skills (`claude-skills-dev-environment`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

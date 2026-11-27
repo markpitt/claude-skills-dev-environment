@@ -1,132 +1,51 @@
 ---
 name: markdown-to-pdf
-description: Produces high-quality PDF documents from Markdown using reproducible, automation-friendly workflows. Use when the user asks to convert Markdown to PDF, choose a PDF engine, apply branding/styles/templates, enforce accessibility or archival standards, harden untrusted conversion pipelines, or integrate PDF generation into hooks and CI artifact publishing. Do NOT use for non-documentation tasks or generic Markdown editing without PDF output goals.
+description: Converts Markdown to PDF with Pandoc in a way that can be repeated locally and in CI - explicit formats, a checked-in defaults file, a deliberately chosen PDF engine (lualatex, tectonic, weasyprint, typst or prince), stable styling, reproducible output, PDF/UA or PDF/A where needed, and guardrails for untrusted input. Use when asked to turn Markdown into a PDF, merge several Markdown files into one PDF, choose or compare PDF engines, brand or template PDF output, make PDF builds reproducible, convert user-uploaded Markdown safely, or generate PDFs from a git hook or as CI artifacts. Do NOT use for Markdown editing or tidying with no PDF output (use markdown-formatter), or for producing other formats such as DOCX or HTML on their own.
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "2.0.0"
 ---
 
 # Markdown to PDF
 
-Generate reliable, modern Markdown-to-PDF workflows with explicit engine selection,
-versioned configuration, and deterministic outputs.
+Pandoc is the converter. Most PDF trouble comes from things left implicit: which engine ran, which
+order the files went in, where images were looked up, what date was stamped in. Make each of them
+explicit and the same build gives the same PDF on every machine.
 
-## Critical
+Answer with a command or a defaults file that works, the engine chosen and why, and whatever the
+request needs on determinism, security or standards. Keep alternatives short.
 
-- Prefer `pandoc` as the baseline converter and show concrete commands.
-- Explicitly set formats (`--from`, `--to`) and output (`--output`).
-- Prefer checked-in defaults files (`--defaults`) over long ad-hoc CLI strings.
-- Choose engine deliberately with `--pdf-engine` and explain trade-offs.
-- For multi-file inputs, enforce explicit file order.
-- For untrusted input, include security guardrails (sandboxing + strict parsing choices).
-- For reproducibility, include `SOURCE_DATE_EPOCH` and deterministic metadata guidance.
-- For PDF/UA or PDF/A requests, include standards-specific guidance and external validation caveat.
+## Start here
 
-## Mandatory Intent Rules
-
-For in-scope requests, never answer with generic prose only. Include the required
-signals for the detected intent:
-
-- Multi-file merge request:
-  - Must mention explicit input ordering.
-  - Must mention deterministic output path.
-  - Must mention `--resource-path` or file-scope/resource discipline.
-- Shared local + CI config request:
-  - Must recommend a checked-in defaults file and mention `--defaults`.
-- Engine comparison request:
-  - Must compare at least 3 engines.
-  - Must mention `--pdf-engine` explicitly.
-- Accessibility/archival request:
-  - Must mention PDF/UA or PDF/A path.
-  - Must include explicit external validation caveat.
-- Reproducibility request:
-  - Must mention `SOURCE_DATE_EPOCH`.
-  - Must mention deterministic input order and metadata/path controls.
-- Missing-tool automation request:
-  - Must provide graceful fallback behaviour (warn/skip or policy-driven fail).
-  - Must include remediation command, including `mise` when relevant.
-
-## When to Use
-
-- Convert one or more Markdown files to PDF.
-- Build a reusable local + CI conversion workflow.
-- Compare engines like `lualatex`, `tectonic`, `weasyprint`, `typst`, or `prince`.
-- Add stable branding via templates/CSS/variables.
-- Improve safety for untrusted uploaded Markdown.
-- Make outputs reproducible across machines/runs.
-- Publish PDFs as CI artifacts.
-
-## When NOT to Use
-
-- User asks only for Markdown editing with no PDF output goal.
-- User asks unrelated questions (math, geography, general coding).
-- Task is non-document automation unrelated to document conversion.
-
-## Response Contract
-
-When the request is in scope, structure the answer so it is immediately actionable:
-
-1. Provide at least one concrete command.
-2. State selected engine and why.
-3. Include deterministic path/config guidance.
-4. Include security/reproducibility/standards guidance when relevant.
-5. Keep optional alternatives short and clearly labeled.
-
-Use this compact output structure for in-scope prompts:
-
-- `Recommended command` (or `Recommended defaults file`)
-- `Why this engine`
-- `Determinism and CI`
-- `Security/standards caveats` (only when relevant)
-
-When relevant, include these literal tokens in the answer text:
-
-- `--defaults`
-- `--pdf-engine`
-- `SOURCE_DATE_EPOCH`
-- `--resource-path`
-- `PDF/UA` or `PDF/A`
-- `external validation`
-- `mise`
-
-## Core Workflow
-
-1. Discover capabilities:
-   - `pandoc --version`
-   - `pandoc --list-output-formats`
-   - `pandoc --list-input-formats`
-2. Start with a deterministic baseline command.
-3. Move repeated options to a checked-in defaults file.
-4. Layer style and branding incrementally.
-5. Add CI/hook automation with graceful tool-missing behaviour.
-6. Add reproducibility controls for stable artifacts.
-
-## Baseline Commands
-
-Single file with TOC and section numbering:
+Check what is installed: `pandoc --version`, and `pandoc --list-output-formats` if in doubt. Then:
 
 ```bash
 pandoc --from=markdown --to=pdf README.md \
+  --pdf-engine=lualatex \
   --output docs/out/README.pdf \
   --toc --number-sections
 ```
 
-Multiple files with explicit order:
+For several files, list them in the order they should appear. A shell glob sorts by name in the
+current locale, which is rarely the reading order and can differ between machines:
 
 ```bash
-pandoc --from=markdown --to=pdf \
+pandoc --from=markdown --to=pdf --pdf-engine=lualatex \
   docs/intro.md docs/architecture.md docs/usage.md \
-  --output docs/out/guide.pdf \
-  --toc --number-sections
+  --resource-path=.:docs/assets \
+  --output docs/out/guide.pdf --toc --number-sections
 ```
 
-## Defaults-File First
+`--resource-path` says where images are found. Without it, Pandoc looks relative to the working
+directory, so a build that works from the repository root breaks from anywhere else.
 
-Prefer a versioned defaults file in the repo.
+## Put the options in a defaults file
 
-Example `pdf.defaults.yaml`:
+Once a command is used by more than one person or by CI, move its options into a checked-in file,
+so local and CI builds cannot drift apart:
 
 ```yaml
+# pdf.defaults.yaml
 from: markdown
 to: pdf
 pdf-engine: lualatex
@@ -138,94 +57,76 @@ resource-path:
   - docs/assets
 ```
 
-Run:
-
 ```bash
 pandoc --defaults pdf.defaults.yaml docs/intro.md docs/architecture.md docs/usage.md
 ```
 
-## Engine Selection Guidance
+## Choosing an engine
 
-Always use `--pdf-engine` explicitly when giving recommendations.
+Always name it with `--pdf-engine`. The default depends on what is installed, so leaving it out
+gives different PDFs on different machines.
 
-- `lualatex`: strongest general default for high-quality typography and broad Pandoc support.
-- `tectonic`: strong CI ergonomics and simplified TeX dependency management.
-- `weasyprint`: best when CSS-driven layout/web-print parity is required.
-- `typst`: fast modern typesetting workflows and strong template ergonomics.
-- `prince`: premium HTML/CSS-to-PDF engine with strong standards features.
+| Engine | Choose it when | Trade-off |
+|---|---|---|
+| `lualatex` | You want the best general typography and the widest Pandoc support | A large TeX install, and slower |
+| `tectonic` | You want LaTeX output in CI without managing a TeX distribution | Downloads packages on first run, so cache them |
+| `weasyprint` | The layout is driven by CSS, or must match a web page | Weaker on maths and some LaTeX-only features |
+| `typst` | You want fast builds and simple templates | A younger ecosystem, and templates are Typst, not LaTeX |
+| `prince` | You need the most complete CSS paged-media support, or tagged PDFs from HTML | Commercial: it needs a licence for commercial use |
 
-## Styling and Branding Strategy
+`pdflatex` still works but has no system fonts and limited Unicode. Prefer `lualatex`.
 
-Apply styling in this order to reduce brittleness:
+## Styling without brittleness
 
-1. Metadata/variables (title, lang, margins, fonts)
-2. Defaults file
-3. Engine-level template/CSS/reference assets
-4. Minimal custom filters only when strictly necessary
+Apply style in this order, and stop at the first level that does the job: metadata and variables
+(title, language, margins, fonts), then the defaults file, then a template, CSS or reference
+document for the engine, and only then a Lua filter. Keep every style file in the repository at a
+fixed path. A template that lives in someone's home folder is a build that only works for them.
 
-Keep style artifacts versioned and path-stable. Avoid hidden user-local dependencies.
+## Accessible and archival PDFs
 
-## Accessibility and Archival Standards
+For PDF/UA (accessible) or PDF/A (archival), use `lualatex` with the `pdfstandard` variable, or
+Typst's PDF standard option. weasyprint and prince have their own modes, and what they support
+varies by version.
 
-For PDF/UA or PDF/A requirements:
+Conversion alone never proves conformance. Say so, and have the output checked by an external
+validator such as veraPDF before anyone relies on it.
 
-- LaTeX path: use `lualatex` and `pdfstandard` metadata/variables where supported.
-- Typst path: use Typst PDF standard options when requested.
-- HTML engines (`weasyprint`, `prince`) can support standards/tagging modes, but capabilities vary by version/config.
-- State clearly that external conformance validation is mandatory.
+## Untrusted Markdown
 
-Never claim compliance from conversion alone.
+Markdown from users can read local files through image paths and includes, and filters and
+templates are code.
 
-## Security for Untrusted Markdown
+- Run Pandoc with `--sandbox`, which stops it reading or writing files beyond its inputs and output.
+- Narrow the parser: `--from=commonmark`, or Markdown with only the extensions you need.
+- Allow only reviewed filters and templates, never ones named in the input.
+- Convert inside a container or other isolated runtime, with time and memory limits.
 
-When users upload Markdown:
+## Reproducible output
 
-- Prefer strict parse surface (for example `--from=commonmark` or constrained extensions).
-- Use `--sandbox` for pandoc IO restrictions.
-- Treat filters/templates as code: allow-list and review before execution.
-- Run conversion in isolated runtime/container for defence in depth.
-- Set resource and time limits for conversion jobs.
+Two builds of the same source differ when the date, the file order, the tool versions or the paths
+differ. To pin them:
 
-## Reproducibility Controls
+- set `SOURCE_DATE_EPOCH`, for example to the last commit's timestamp, so embedded dates do not
+  change;
+- list the input files in a fixed order;
+- pin Pandoc and the engine versions in CI;
+- keep output paths, defaults and templates fixed and in the repository;
+- set `title`, `date` and any identifiers in metadata rather than letting them default.
 
-Use all of the following when deterministic outputs matter:
+## Hooks and CI
 
-- Pin converter + engine versions in CI.
-- Set `SOURCE_DATE_EPOCH`.
-- Use fixed input ordering.
-- Use stable output paths and checked-in defaults/template assets.
-- Set explicit metadata fields (`title`, `date`, identifiers when needed).
+A git hook that makes an optional PDF should warn and skip when Pandoc is missing, not block the
+commit, and print the command that installs it (for example `mise use pandoc` where the project
+uses mise, or the system package). Fail only where policy says the PDF is required.
 
-## Automation Patterns
-
-### Git hooks (optional artifact)
-
-If PDF generation is optional and tool is missing:
-
-- warn clearly,
-- skip artifact generation,
-- continue primary workflow.
-
-Include remediation (install command or `mise` bootstrap command).
-
-### CI artifacts
-
-- Generate to deterministic output path (for example `docs/out/*.pdf`).
-- Upload artifact from that exact path.
-- Fail only when PDF is required by policy.
-
-## Tool-Missing Fallbacks
-
-When `pandoc` is unavailable:
-
-1. Recommend bootstrap via project toolchain (for this repo, `mise`).
-2. Offer containerised fallback if local installation is undesirable.
-3. Keep behaviour explicit (skip/warn/fail policy).
+In CI, write to a fixed path such as `docs/out/` and upload the artifact from exactly that path. If
+installing Pandoc locally is unwelcome, the `pandoc/latex` container image is a fallback.
 
 ## References
 
-Load these references for deeper, source-grounded detail:
-
-- `references/engine-and-standards.md`
-- `references/reproducibility-and-security.md`
-- `references/ci-and-automation.md`
+| File | Covers |
+|---|---|
+| `references/engine-and-standards.md` | Engines in depth, PDF/UA and PDF/A options |
+| `references/reproducibility-and-security.md` | Determinism controls, sandboxing, untrusted input |
+| `references/ci-and-automation.md` | Hooks, CI jobs, artifacts and missing-tool handling |

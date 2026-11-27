@@ -2,10 +2,10 @@
 
 # mise
 
-Provides expert guidance on mise (mise-en-place), a polyglot dev tool and environment orchestrator that manages runtimes, environment variables, and project tasks. This skill should be used when users ask about mise configuration (mise.toml), installing or switching tool versions (Node, Python, Go, .NET, etc.), the mise task runner, environment variable management, secrets with SOPS/fnox, backends (github, ubi, cargo, npm, aqua, conda, pipx), Lua plugins, shell hooks, migrating from asdf/nvm/direnv, or debugging with mise doctor. Also use when running tools from an agent's shell or other non-interactive commands (mise exec versus mise activate), or when installing language servers and debug adapters through mise instead of an editor's installer such as Mason. Do NOT use for general Docker, container or CI questions that do not involve mise, or for editor settings beyond the tools they run.
+Configures and debugs mise (mise-en-place), which manages tool versions, environment variables and project tasks from a mise.toml. Covers installing and pinning runtimes (Node, Python, Go, .NET and others), the task runner, env vars and PATH, secrets with SOPS or fnox, backends (github, ubi, cargo, npm, aqua, conda, pipx), Lua plugins, lockfiles, shell activation, migrating from asdf, nvm or direnv, and mise doctor. Also covers running tools from an agent's shell or any non-interactive command (mise exec versus mise activate), and installing language servers and debug adapters through mise instead of an editor's installer such as Mason. Use when writing or fixing a mise.toml, when a tool is not found or the wrong version runs, when adding mise tasks, or when an agent's commands cannot see tools mise installed. Do NOT use for general Docker, container or CI questions that do not involve mise, or for editor settings beyond the tools they run.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 1.3.0
+- **Version:** 2.0.0
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -35,4 +35,4 @@ Loaded on demand, not up front. SKILL.md routes to them.
 ## Part of a larger set
 
 One of the Developer environment skills (`claude-skills-dev-environment`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

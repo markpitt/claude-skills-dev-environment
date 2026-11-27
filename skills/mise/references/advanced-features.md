@@ -298,10 +298,10 @@ Commonly used `[settings]` entries:
 
 ```toml
 [settings]
-# Enable experimental features (lockfiles, monorepo tasks, etc.)
+# Opt in to experimental features (lockfiles no longer need this)
 experimental = true
 
-# Enable lockfile
+# Write and honour mise.lock (the default since 2026.2.0)
 lockfile = true
 
 # Auto-install tools declared in mise.toml on directory entry
@@ -324,7 +324,7 @@ verbose = false
 
 | Problem | Diagnosis | Fix |
 |---------|-----------|-----|
-| Wrong version of a tool active | `mise ls` to check + `mise env` to see PATH | Check config hierarchy with `mise config ls`; ensure project `mise.toml` takes precedence |
+| Wrong version of a tool active | `mise ls` to check + `mise env` to see PATH | Check config hierarchy with `mise config ls`; make sure project `mise.toml` takes precedence |
 | Tool not found after install | `mise doctor` | Shell not activated; add `eval "$(mise activate zsh)"` to shell profile |
 | env vars not loading / templates not evaluated | `mise trust --show` | Run `mise trust` to trust the config file; required for [env] and templates |
 | SOPS decryption fails on CI | Check SOPS key availability | Inject age private key or IAM role into CI environment |

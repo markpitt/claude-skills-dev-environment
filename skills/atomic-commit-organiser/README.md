@@ -2,10 +2,10 @@
 
 # atomic-commit-organiser
 
-Turn a dirty working tree, or several repositories at once, into commits grouped by intent, staging explicit paths and hunks only and never a blanket add. Use when asked to commit everything in logical pieces, split one large change into atomic commits, tidy a messy index, sweep several repositories for uncommitted work, or leave named files or repositories out of a commit. Do NOT use for blocking force pushes or setting push rules (use git-protection), for drafting a message for one finished change, or for resolving merge conflicts.
+Turns a dirty working tree, or several repositories at once, into commits grouped by intent, staging explicit paths and hunks only and never a blanket add. Use when asked to commit everything in logical pieces, split one large change into atomic commits, tidy a messy index, sweep several repositories for uncommitted work, or leave named files or repositories out of a commit. Do NOT use for blocking force pushes or setting push rules (use git-protection), for drafting a message for one finished change, or for resolving merge conflicts.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 1.0.0
+- **Version:** 1.0.1
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -31,4 +31,4 @@ Loaded on demand, not up front. SKILL.md routes to them.
 ## Part of a larger set
 
 One of the Developer environment skills (`claude-skills-dev-environment`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

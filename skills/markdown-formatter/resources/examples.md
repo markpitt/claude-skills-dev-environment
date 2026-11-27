@@ -32,7 +32,7 @@ More content.
 - Converted underline-style header to ATX-style
 - Fixed skipped header level
 - Added proper spacing around headers
-- Capitalized headers appropriately
+- Capitalised headers appropriately
 
 ## Example 2: List Formatting
 
@@ -58,10 +58,10 @@ Here is a list:
 ```
 
 ### Issues Fixed
-- Standardized list markers to `-`
+- Standardised list markers to `-`
 - Added blank line before list
 - Consistent indentation (2 spaces per level)
-- Capitalized list items
+- Capitalised list items
 
 ## Example 3: Code Block Formatting
 
@@ -345,7 +345,7 @@ Section 3 content.
 ```
 
 ### Issues Fixed
-- Standardized horizontal rule to `---`
+- Standardised horizontal rule to `---`
 - Added proper spacing around rule
 - Removed excessive blank lines
 - Single blank line between sections

@@ -115,7 +115,7 @@ More details.
 Another major topic...
 ```
 
-## Capitalization and Formatting
+## Capitalisation and Formatting
 
 ### Style Options
 Choose one and be consistent:
@@ -223,7 +223,7 @@ Example table of contents (auto-generated from headers):
 - [ ] Blank line before each header (except first)
 - [ ] Blank line after each header
 - [ ] No trailing punctuation
-- [ ] Consistent capitalization
+- [ ] Consistent capitalisation
 - [ ] Logical hierarchy
 - [ ] Descriptive header text
 

@@ -2,10 +2,10 @@
 
 # markdown-to-pdf
 
-Produces high-quality PDF documents from Markdown using reproducible, automation-friendly workflows. Use when the user asks to convert Markdown to PDF, choose a PDF engine, apply branding/styles/templates, enforce accessibility or archival standards, harden untrusted conversion pipelines, or integrate PDF generation into hooks and CI artifact publishing. Do NOT use for non-documentation tasks or generic Markdown editing without PDF output goals.
+Converts Markdown to PDF with Pandoc in a way that can be repeated locally and in CI - explicit formats, a checked-in defaults file, a deliberately chosen PDF engine (lualatex, tectonic, weasyprint, typst or prince), stable styling, reproducible output, PDF/UA or PDF/A where needed, and guardrails for untrusted input. Use when asked to turn Markdown into a PDF, merge several Markdown files into one PDF, choose or compare PDF engines, brand or template PDF output, make PDF builds reproducible, convert user-uploaded Markdown safely, or generate PDFs from a git hook or as CI artifacts. Do NOT use for Markdown editing or tidying with no PDF output (use markdown-formatter), or for producing other formats such as DOCX or HTML on their own.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 1.0.0
+- **Version:** 2.0.0
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -31,4 +31,4 @@ Loaded on demand, not up front. SKILL.md routes to them.
 ## Part of a larger set
 
 One of the Developer environment skills (`claude-skills-dev-environment`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

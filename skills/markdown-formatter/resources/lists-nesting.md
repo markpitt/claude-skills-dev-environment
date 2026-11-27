@@ -190,7 +190,7 @@ Here is a list:
 Next section.
 ```
 
-### Issue: Inconsistent Capitalization
+### Issue: Inconsistent Capitalisation
 
 Before:
 ```markdown
@@ -309,7 +309,7 @@ Poorly formatted lists:
 - [ ] Blank line before list
 - [ ] Blank line after list
 - [ ] No blank lines between simple items
-- [ ] Consistent capitalization
+- [ ] Consistent capitalisation
 
 ### Ordered Lists
 - [ ] Items numbered `1.`, `2.`, etc. (or all `1.`)

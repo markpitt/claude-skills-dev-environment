@@ -149,7 +149,7 @@ Line one
 Line two
 ```
 
-Two trailing spaces create a hard line break. Generally not recommended—use paragraphs instead.
+Two trailing spaces create a hard line break. Generally not recommended: use paragraphs instead.
 
 ## End of File
 
@@ -240,7 +240,7 @@ Align columns with spaces for readability.
 | SLA | — | 99.5% | 99.99% |
 ```
 
-Use symbols for clarity: ✓ (yes), — (no/N/A)
+Use symbols for clarity: ✓ (yes),. (no/N/A)
 
 ## Special Characters and Escaping
 

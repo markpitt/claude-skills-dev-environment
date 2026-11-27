@@ -2,10 +2,10 @@
 
 # cloudflare-workers-static-site
 
-Deploy a static site (Astro, Vite, Hugo, Eleventy, plain HTML) from a GitHub repo to Cloudflare Workers static assets, with GitHub Actions doing build, check and deploy on push to main. Use when a repo or monorepo subfolder holds a static or mostly static site that should go live on Cloudflare, or when moving a site off Cloudflare Pages or GitHub Pages. Do NOT use for Cloudflare Pages (`wrangler pages deploy`) or for server-rendered apps that need a framework adapter.
+Deploys a static site (Astro, Vite, Hugo, Eleventy, plain HTML) from a GitHub repo to Cloudflare Workers static assets, with GitHub Actions doing build, check and deploy on push to main. Use when a repo or monorepo subfolder holds a static or mostly static site that should go live on Cloudflare, or when moving a site off Cloudflare Pages or GitHub Pages. Do NOT use for Cloudflare Pages (`wrangler pages deploy`) or for server-rendered apps that need a framework adapter.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 1.0.0
+- **Version:** 1.0.1
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -33,4 +33,4 @@ Loaded on demand, not up front. SKILL.md routes to them.
 ## Part of a larger set
 
 One of the Developer environment skills (`claude-skills-dev-environment`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

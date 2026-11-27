@@ -2,10 +2,10 @@
 
 # container-image-updates
 
-Check a Docker Compose stack's images for newer releases without pulling them, read the release notes for breaking changes and one-way migrations, check version coupling between services, then pin the chosen versions by tag and digest, back up, deploy, verify and keep a rollback ready. Queries Docker Hub, GHCR and other OCI registries over their HTTP APIs with anonymous pull tokens, and resolves the multi-architecture index digest. Use when asked whether a stack has updates, to update or pin an image, to move images off moving tags such as latest or main, or after a deploy that did not pick up a new image. Do NOT use for building or publishing your own images, for automatic updaters such as Watchtower or Renovate, or for Kubernetes rollouts.
+Checks a Docker Compose stack's images for newer releases without pulling them, reads the release notes for breaking changes and one-way migrations, checks version coupling between services, then pins the chosen versions by tag and digest, backs up, deploys, verifies and keeps a rollback ready. Queries Docker Hub, GHCR and other OCI registries over their HTTP APIs with anonymous pull tokens, and resolves the multi-architecture index digest. Use when asked whether a stack has updates, to update or pin an image, to move images off moving tags such as latest or main, or after a deploy that did not pick up a new image. Do NOT use for building or publishing your own images, for automatic updaters such as Watchtower or Renovate, or for Kubernetes rollouts.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 1.0.0
+- **Version:** 1.0.1
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -23,4 +23,4 @@ Settings, Capabilities, Skills. Released builds attach a ready-made zip.
 ## Part of a larger set
 
 One of the Developer environment skills (`claude-skills-dev-environment`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).
