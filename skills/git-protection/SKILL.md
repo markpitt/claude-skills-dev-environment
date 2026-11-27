@@ -1,9 +1,9 @@
 ---
 name: git-protection
-description: Stop force pushes and history rewrites from a machine with a global git pre-push hook, and set the matching agent rules (commit small and often, ask before pushing, fix forward). Use when asked to protect git history, block force pushes, set up or check a pre-push hook, add commit and push rules for coding agents, or when a push is refused with "non-fast-forward". Do NOT use for resolving merge conflicts, writing commit messages, organising a dirty tree into commits (use atomic-commit-organiser), scrubbing a repository for publication (use public-repo-hygiene) or configuring CI.
+description: Stops force pushes and history rewrites from a machine with a global git pre-push hook, and sets the matching agent rules (commit small and often, ask before pushing, fix forward). Use when asked to protect git history, block force pushes, set up or check a pre-push hook, add commit and push rules for coding agents, or when a push is refused with "non-fast-forward". Do NOT use for resolving merge conflicts, writing commit messages, organising a dirty tree into commits (use atomic-commit-organiser), scrubbing a repository for publication (use public-repo-hygiene) or configuring CI.
 license: Apache-2.0
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
 ---
 
 # Git protection

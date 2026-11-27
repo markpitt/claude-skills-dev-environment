@@ -2,10 +2,10 @@
 
 # markdown-formatter
 
-Formats markdown files according to best practices and common style guidelines. Use when cleaning up markdown documentation, ensuring consistent formatting, or standardising README files.
+Formats Markdown files to a consistent house style - ATX headings with no skipped levels, one list marker, fenced code with a language, descriptive link text, alt text on every image, and clean spacing - and checks the result with a bundled validator script. Use when asked to tidy, clean up, standardise or lint a README or other Markdown document, to fix mixed heading or list styles, missing code languages, "click here" links or missing alt text, or when asked what the Markdown formatting rules are. Do NOT use for converting Markdown to PDF (use markdown-to-pdf), for rewriting the content or its tone, for spelling and grammar, or for writing new documents.
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 2.2.1
+- **Version:** 3.0.0
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -37,4 +37,4 @@ Loaded on demand, not up front. SKILL.md routes to them.
 ## Part of a larger set
 
 One of the Developer environment skills (`claude-skills-dev-environment`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

@@ -1,139 +1,93 @@
 ---
 name: devcontainers
-description: Provides expert guidance on Development Containers (devcontainers), creating, configuring, and optimising containerised development environments using the Dev Container Specification. This skill should be used when users ask about devcontainer.json, .devcontainer setup, Dev Container Features or Templates, pre-building images, multi-container workflows, Docker-in-Docker, cloud development environments (Codespaces, DevPod), or troubleshooting container performance and permission issues.
+description: Writes, fixes and speeds up development containers under the Dev Container Specification. Covers devcontainer.json, Dev Container Features and Templates, lifecycle commands, pre-built images, multi-container setups with Docker Compose, Docker-in-Docker and Docker-outside-of-Docker, non-root users and secrets, and GitHub Codespaces and DevPod. Use when creating or editing a .devcontainer folder, adding a tool to a dev container, when a container is slow to build or start, when files created inside it have the wrong owner, when SSH or Git credentials do not work inside it, or when asked to set up a dev container for a repository. Do NOT use for production Dockerfiles or image publishing with no dev container involved, for Kubernetes deployments, or for installing tool versions on the host with mise (use mise).
 license: Apache-2.0
 metadata:
-  version: 1.0.0
+  version: "2.0.0"
   tags: [docker, containers, devcontainers, vscode, codespaces, devpod]
 ---
 
-# Dev Containers Skill
+# Dev containers
 
-Expert guidance on creating, configuring, and optimising containerised development environments using the [Dev Container Specification](https://containers.dev). Covers `devcontainer.json` authoring, Features, Templates, performance, security, multi-container setups, and cloud environments.
+A dev container is a `devcontainer.json`, usually in `.devcontainer/`, that tells VS Code, the
+`devcontainer` CLI, Codespaces or DevPod how to build a container and attach to it. The
+[specification](https://containers.dev) is shared by all of them, so a file that works in one
+should work in the others.
 
-## Quick Reference Table
+Produce a complete, commented `devcontainer.json` (and the Dockerfile or Compose file it needs)
+rather than describing one.
 
-| Task | Load Resource | Key Concepts |
-|------|--------------|--------------|
-| Create or configure a `devcontainer.json` | `references/core-concepts.md` | image, build, features, lifecycle hooks, customisations |
-| Add tools/languages to a container | `references/features-templates.md` | Features, version pinning, installsAfter, Templates |
-| Set up multi-container or Docker-in-Docker | `references/advanced-config.md` | dockerComposeFile, DinD, DooD, Kubernetes, service |
-| Improve build/startup speed | `references/performance-security.md` | layer caching, named volumes, pre-built images, Virtio-fs |
-| Harden container security or manage secrets | `references/performance-security.md` | remoteUser, UID mapping, SSH forwarding, secrets |
-| Debug slow mounts, permission errors, credential issues | `references/troubleshooting.md` | UID/GID, bind mounts, SSH agent, postCreateCommand |
-| Integrate with Codespaces or DevPod | `references/advanced-config.md` | prebuilds, providers, SSH, cloud residency |
+## Three ways to define the container
 
-## Orchestration Protocol
+| Use | When |
+|---|---|
+| `image` | A published image plus Features covers it. The simplest, and the right start for most repos |
+| `build.dockerfile` | You need system packages or steps no Feature provides |
+| `dockerComposeFile` | The app needs other services (a database, a cache) running beside it |
 
-### Phase 1: Classify the Task
+A minimal file:
 
-Identify which category the user's request falls into:
-
-- **Configuration**: writing or editing `devcontainer.json`, Dockerfiles, Compose files
-- **Tooling**: adding Features, authoring custom Features, or using Templates
-- **Advanced**: multi-container, DinD/DooD, Kubernetes, cloud environments
-- **Optimisation**: caching, pre-built images, named volumes, disk I/O
-- **Security**: non-root users, UID mapping, secrets, hardened images
-- **Troubleshooting**: permission errors, slow builds, SSH/GPG credential issues
-
-### Phase 2: Load the Right Resource
-
-Load the resource indicated in the Quick Reference Table. For complex tasks spanning multiple areas (e.g. "set up a secure multi-container environment with fast builds"), load **both** relevant files.
-
-### Phase 3: Execute
-
-Apply the guidance from the loaded resource. Use concrete examples from the resource files. For configuration tasks, produce a complete, commented `devcontainer.json` snippet.
-
-## Common Task Workflows
-
-### Workflow 1: Create a New Dev Container from Scratch
-
-1. Load `references/core-concepts.md` for the full property reference
-2. Choose orchestration method: `image` (simplest), `build.dockerfile`, or `dockerComposeFile`
-3. Add `features` for tools (Node.js, Python, Git, Docker CLI, etc.)
-4. Set `remoteUser` to a non-root user for security
-5. Add `customizations.vscode.extensions` and `settings` for IDE consistency
-6. Add `postCreateCommand` to install dependencies automatically
-7. Add `forwardPorts` for any app ports
-
-```json
+```jsonc
 {
-  "name": "My Project",
+  "name": "my-project",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
   "features": {
-    "ghcr.io/devcontainers/features/node:1": { "version": "20" },
+    "ghcr.io/devcontainers/features/node:1": { "version": "24" },
     "ghcr.io/devcontainers/features/git:1": {}
   },
   "customizations": {
-    "vscode": {
-      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"],
-      "settings": { "editor.formatOnSave": true }
-    }
+    "vscode": { "extensions": ["dbaeumer.vscode-eslint"] }
   },
-  "postCreateCommand": "npm install",
+  // Runs once, after the container is created, so the workspace is ready to use.
+  "postCreateCommand": "npm ci",
   "forwardPorts": [3000],
-  "remoteUser": "node"
+  // The Microsoft base images ship a non-root user called vscode.
+  "remoteUser": "vscode"
 }
 ```
 
-### Workflow 2: Add a Tool via Features
+## Decisions that matter
 
-1. Load `references/features-templates.md`
-2. Browse the [official registry](https://containers.dev/features) or GitHub Container Registry
-3. Add the feature with a pinned version to `devcontainer.json`
-4. Use `overrideFeatureInstallOrder` if ordering matters
+- **Pin versions.** Features by major version (`node:1`), base images by tag, and the tool versions
+  inside Features. An unpinned container builds differently next month.
+- **Run as a non-root user.** Set `remoteUser`, and leave `updateRemoteUserUID` at its default of
+  `true` on Linux so files you create in the workspace are owned by you on the host.
+- **Put setup in lifecycle commands.** `postCreateCommand` for dependency installs, and
+  `postStartCommand` for anything that must run on every start. Someone opening the repo should not
+  have to read a README first.
+- **Keep production Compose files untouched.** Add a `docker-compose.dev.yml` with the source mount
+  and debug ports, list both in `dockerComposeFile`, set `service` to the container to attach to,
+  and set `shutdownAction: "none"` if the services should outlive the editor.
+- **Keep secrets out of the image.** Use SSH agent forwarding (the VS Code extension forwards a
+  running local agent), BuildKit secret mounts, or a git-ignored `.env`. Never copy a private key in.
+- **Pre-build when start-up is slow.** Build the image in CI with the `devcontainer` CLI, push it,
+  and point `image` at it. Start-up goes from minutes to seconds, and the metadata travels in the
+  image labels.
+- **Use named volumes for heavy folders on macOS and Windows.** Bind mounts there are slow, so put
+  `node_modules` and similar in a named volume.
 
-### Workflow 3: Multi-Container Setup with Docker Compose
+## When it goes wrong
 
-1. Load `references/advanced-config.md`
-2. Create `docker-compose.yml` for services (app, database, cache)
-3. Create `docker-compose.dev.yml` for development overrides (source mounts, debug ports)
-4. Set `dockerComposeFile` to both files in `devcontainer.json`
-5. Set `service` to the container the IDE should attach to
-6. Set `shutdownAction: "none"` to keep services running when IDE closes
+| Symptom | Usual cause | Reference |
+|---|---|---|
+| Files owned by root or the wrong UID on the host | `remoteUser` unset, or `updateRemoteUserUID` turned off | `references/troubleshooting.md` |
+| `git push` fails inside the container | No SSH agent running on the host, or a key copied in instead of forwarded | `references/troubleshooting.md` |
+| Builds take minutes every time | Dockerfile order invalidates the cache, or no pre-built image | `references/performance-security.md` |
+| Slow file access on macOS or Windows | Heavy folders on a bind mount | `references/performance-security.md` |
+| `postCreateCommand` fails silently | The command needs a Feature that installs after it, or a service not yet up | `references/troubleshooting.md` |
 
-### Workflow 4: Speed Up Dev Container Builds
+## References
 
-1. Load `references/performance-security.md`
-2. Order Dockerfile instructions from least-changed to most-changed
-3. Use `RUN --mount=type=cache` for package managers
-4. Use named volumes for `node_modules` / heavy dependency directories
-5. Pre-build and push image in CI; reference the pre-built image in `devcontainer.json`
+| File | Covers |
+|---|---|
+| `references/core-concepts.md` | Every `devcontainer.json` property, lifecycle hooks, file location precedence |
+| `references/features-templates.md` | Using and writing Features, install order, Templates |
+| `references/advanced-config.md` | Compose setups, Docker-in-Docker and Docker-outside-of-Docker, Kubernetes, Codespaces, DevPod |
+| `references/performance-security.md` | Layer caching, named volumes, pre-built images, non-root users, secrets |
+| `references/troubleshooting.md` | Permission errors, slow I/O, SSH and GPG credentials, lifecycle failures |
 
-### Workflow 5: Troubleshoot a Permission or Credential Issue
-
-1. Load `references/troubleshooting.md`
-2. For UID mismatch: ensure `updateRemoteUserUID: true` (default on Linux)
-3. For SSH: ensure local SSH agent is running; the extension auto-forwards it
-4. For Git inside container: use SSH agent forwarding; do not copy private keys
-
-## Resource Summaries
-
-| File | Contents | Lines |
-|------|----------|-------|
-| `references/core-concepts.md` | Full `devcontainer.json` property reference, lifecycle hooks, location precedence | ~280 |
-| `references/features-templates.md` | Consuming and authoring Features, Templates distribution, version pinning | ~260 |
-| `references/advanced-config.md` | Multi-container, Docker-in-Docker/from-Docker, Kubernetes, Codespaces, DevPod | ~280 |
-| `references/performance-security.md` | Layer caching, named volumes, pre-built images, non-root users, secrets | ~270 |
-| `references/troubleshooting.md` | Permission errors, slow I/O, SSH/GPG credentials, lifecycle script issues | ~200 |
-
-## Best Practices
-
-- **Version-pin everything**: pin Features (`feature:1`) and base images (`python:3.12`) for reproducibility
-- **Non-root by default**: always set `remoteUser` to a non-root user; use `updateRemoteUserUID: true` on Linux
-- **Automate setup**: use `postCreateCommand` to install dependencies so the environment is immediately usable
-- **Don't modify production Compose**: use a `docker-compose.dev.yml` override for dev-specific additions
-- **Pre-build images in CI**: reduces startup from minutes to seconds; embed metadata in image labels
-- **Never bake secrets into images**: use SSH agent forwarding, BuildKit secret mounts, or `.env` files (git-ignored)
-- **Named volumes for heavy directories**: on macOS/Windows, mount `node_modules` etc. into named volumes for native I/O speed
-
-## External References
-
-- [Dev Container Specification](https://containers.dev), official specification and schema
-- [devcontainer.json reference](https://containers.dev/implementors/json_reference/), full property reference
-- [Official Features registry](https://containers.dev/features). Browse available Features
-- [Official Templates registry](https://containers.dev/templates). Browse available Templates
-- [VS Code Dev Containers docs](https://code.visualstudio.com/docs/devcontainers/containers), IDE integration guide
-- [GitHub Codespaces docs](https://docs.github.com/en/codespaces), cloud-hosted containers
-- [DevPod docs](https://devpod.sh/docs), open-source provider-agnostic cloud dev environments
-- [devcontainers/cli](https://github.com/devcontainers/cli), reference CLI implementation
+External: the [devcontainer.json reference](https://containers.dev/implementors/json_reference/),
+the [Features](https://containers.dev/features) and [Templates](https://containers.dev/templates)
+registries, the [VS Code docs](https://code.visualstudio.com/docs/devcontainers/containers),
+[Codespaces](https://docs.github.com/en/codespaces), [DevPod](https://devpod.sh/docs) and the
+[devcontainer CLI](https://github.com/devcontainers/cli).

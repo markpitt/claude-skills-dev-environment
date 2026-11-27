@@ -15,7 +15,7 @@ Add Features to the `features` object in `devcontainer.json`:
 ```jsonc
 {
   "features": {
-    "ghcr.io/devcontainers/features/node:1": { "version": "20" },
+    "ghcr.io/devcontainers/features/node:1": { "version": "24" },
     "ghcr.io/devcontainers/features/python:1": { "version": "3.12" },
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/azure-cli:1": { "version": "latest" },
@@ -27,7 +27,7 @@ Add Features to the `features` object in `devcontainer.json`:
 }
 ```
 
-**Always pin a major version** (`:1`, `:2`) — never use `:latest` for production environments. The registry resolves the latest patch within a major version.
+**Always pin a major version** (`:1`, `:2`): never use `:latest` for production environments. The registry resolves the latest patch within a major version.
 
 ### Popular Official Features
 
@@ -158,11 +158,11 @@ echo "Done! Installed my-tool ${VERSION}"
 
 ### Key Authoring Rules
 
-1. **Idempotency** — scripts may run multiple times; check before acting
-2. **OS/arch detection** — handle `amd64` and `arm64` at minimum; detect distro via `/etc/os-release`
-3. **Respect `_REMOTE_USER`** — use the `_REMOTE_USER` variable (injected by CLI) when installing user-scoped tools
-4. **Clean up after `apt-get`** — add `&& rm -rf /var/lib/apt/lists/*` to keep layers small
-5. **Export env vars** — use `containerEnv` in metadata rather than sourcing `.bashrc` (more reliable across shells)
+1. **Idempotency**: scripts may run multiple times; check before acting
+2. **OS/arch detection**: handle `amd64` and `arm64` at minimum; detect distro via `/etc/os-release`
+3. **Respect `_REMOTE_USER`**: use the `_REMOTE_USER` variable (injected by CLI) when installing user-scoped tools
+4. **Clean up after `apt-get`**: add `&& rm -rf /var/lib/apt/lists/*` to keep layers small
+5. **Export env vars**: use `containerEnv` in metadata rather than sourcing `.bashrc` (more reliable across shells)
 
 ### Testing Features
 
@@ -249,9 +249,9 @@ my-template/
   "options": {
     "nodeVersion": {
       "type": "string",
-      "default": "20",
+      "default": "24",
       "description": "Node.js version",
-      "proposals": ["20", "18", "16"]
+      "proposals": ["24", "22"]
     }
   },
   "platforms": ["linux/amd64", "linux/arm64"],

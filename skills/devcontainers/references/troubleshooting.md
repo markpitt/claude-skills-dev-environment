@@ -50,7 +50,7 @@ Pass the host user's UID at build time:
 ### Symptom
 `npm install`, `pip install`, or file-watching tools (webpack, nodemon) are extremely slow inside the container.
 
-### Fixes — in order of impact
+### Fixes: in order of impact
 
 **1. Use named volumes for heavy directories**
 
@@ -91,7 +91,7 @@ git clone git@github.com:myorg/my-repo.git ~/projects/my-repo
 
 ### Fix
 
-Ensure the SSH agent is running and your key is loaded **on the host**:
+Make sure the SSH agent is running and your key is loaded **on the host**:
 
 ```bash
 # macOS / Linux
@@ -144,7 +144,7 @@ Mount the GPG socket into the container:
 }
 ```
 
-Ensure `gnupg2` is installed in the container:
+Make sure `gnupg2` is installed in the container:
 
 ```jsonc
 {
@@ -198,7 +198,7 @@ Dependency installation fails, or runs every time the container starts (instead 
 ### Cause
 `postCreateCommand` should run only once after container creation, but a container rebuild triggers it again. If the command is not idempotent, it may fail on re-run.
 
-### Fix — Make Commands Idempotent
+### Fix: Make Commands Idempotent
 
 ```bash
 # ❌ Fails on re-run if .env already exists
@@ -233,7 +233,7 @@ python manage.py migrate --check || python manage.py migrate
 Error: Cannot connect to the Docker daemon at unix:///var/run/docker.sock
 ```
 
-**Fix:** Ensure you have added the DinD/DooD Feature and the container is privileged (for DinD):
+**Fix:** Make sure you have added the DinD/DooD Feature and the container is privileged (for DinD):
 
 ```jsonc
 {
@@ -296,7 +296,7 @@ The app is running inside the container but `http://localhost:3000` is not reach
 
 If the port still does not appear forwarded, check the VS Code **Ports** panel (View → Open View → Ports) and forward it manually.
 
-Ensure the app is listening on `0.0.0.0` (all interfaces), not just `127.0.0.1`:
+Make sure the app is listening on `0.0.0.0` (all interfaces), not just `127.0.0.1`:
 
 ```js
 // ❌ Only accessible inside container

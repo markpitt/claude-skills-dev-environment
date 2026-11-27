@@ -125,7 +125,7 @@ resume_variant() {  # resume_variant "<command line>" -> command line to type
 }
 
 # no_autostart CMD: true when TMUX_SESSION_NO_AUTOSTART_DIR is set, the command's program is `<name>-agent` and
-# <dir>/<name>/.no-autostart exists (the sandboxed-agent convention: that agent is not started automatically).
+# <dir>/<name>/.no-autostart exists (a per-agent marker: that agent is not started automatically).
 no_autostart() {
   [ -n "$NO_AUTOSTART_DIR" ] || return 1
   local first=${1%% *}; first=${first##*/}

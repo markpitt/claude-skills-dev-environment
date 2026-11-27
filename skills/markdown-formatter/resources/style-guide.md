@@ -31,7 +31,7 @@ Content here.
 More content.
 ```
 
-### Capitalization
+### Capitalisation
 - Use sentence case or title case consistently
 - Be consistent within a document
 

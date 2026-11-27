@@ -1,9 +1,9 @@
 ---
 name: traefik-lan-routes
-description: Publish a self-hosted service on the local network through Traefik v3, reachable only from LAN addresses, with a certificate from an internal ACME CA (step-ca) or from Let's Encrypt over the DNS-01 challenge, which works for a name that is never exposed to the internet. Covers routers, services and middlewares as Docker labels or a dynamic file, the HTTP to HTTPS redirect, the ipAllowList middleware, local DNS rewrites, the Cloudflare token scope for DNS-01, resolver start-up order and the checks that prove the route. Use when asked to add a LAN-only hostname for a container, move a service from an internal certificate to Let's Encrypt, or debug a Traefik route that returns 404, 403, a default certificate or a certificate error. Do NOT use for exposing a service to the internet through a tunnel, for making containers trust an internal CA as clients (use internal-ca-trust), or for nginx, Caddy or HAProxy.
+description: Publishes a self-hosted service on the local network through Traefik v3, reachable only from LAN addresses, with a certificate from an internal ACME CA (step-ca) or from Let's Encrypt over the DNS-01 challenge, which works for a name that is never exposed to the internet. Covers routers, services and middlewares as Docker labels or a dynamic file, the HTTP to HTTPS redirect, the ipAllowList middleware, local DNS rewrites, the Cloudflare token scope for DNS-01, resolver start-up order and the checks that prove the route. Use when asked to add a LAN-only hostname for a container, move a service from an internal certificate to Let's Encrypt, or debug a Traefik route that returns 404, 403, a default certificate or a certificate error. Do NOT use for exposing a service to the internet through a tunnel, for making containers trust an internal CA as clients (use internal-ca-trust), or for nginx, Caddy or HAProxy.
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   tags: "traefik, reverse-proxy, tls, lets-encrypt, acme, dns-01, cloudflare, step-ca, lan, ipallowlist, docker, homelab"
 ---
 

@@ -2,10 +2,10 @@
 
 # devcontainers
 
-Provides expert guidance on Development Containers (devcontainers), creating, configuring, and optimising containerised development environments using the Dev Container Specification. This skill should be used when users ask about devcontainer.json, .devcontainer setup, Dev Container Features or Templates, pre-building images, multi-container workflows, Docker-in-Docker, cloud development environments (Codespaces, DevPod), or troubleshooting container performance and permission issues.
+Writes, fixes and speeds up development containers under the Dev Container Specification. Covers devcontainer.json, Dev Container Features and Templates, lifecycle commands, pre-built images, multi-container setups with Docker Compose, Docker-in-Docker and Docker-outside-of-Docker, non-root users and secrets, and GitHub Codespaces and DevPod. Use when creating or editing a .devcontainer folder, adding a tool to a dev container, when a container is slow to build or start, when files created inside it have the wrong owner, when SSH or Git credentials do not work inside it, or when asked to set up a dev container for a repository. Do NOT use for production Dockerfiles or image publishing with no dev container involved, for Kubernetes deployments, or for installing tool versions on the host with mise (use mise).
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 1.0.0
+- **Version:** 2.0.0
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -33,4 +33,4 @@ Loaded on demand, not up front. SKILL.md routes to them.
 ## Part of a larger set
 
 One of the Developer environment skills (`claude-skills-dev-environment`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

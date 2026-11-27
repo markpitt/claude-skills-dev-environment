@@ -149,7 +149,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 ```
 
-Downsides: Containers started inside the dev container are siblings on the host, not children — path mapping can be tricky.
+Downsides: Containers started inside the dev container are siblings on the host, not children. Path mapping can be tricky.
 
 ### Comparison
 
@@ -219,7 +219,7 @@ Start Minikube with the `docker` driver inside the container:
 minikube start --driver=docker
 ```
 
-### DevSpace — Deploy to Remote Cluster
+### DevSpace: Deploy to Remote Cluster
 
 [DevSpace](https://www.devspace.sh/) allows developing directly against a Kubernetes cluster:
 
@@ -238,7 +238,7 @@ Useful for workloads that need cloud resources (GPUs, large datasets) unavailabl
 
 ## GitHub Codespaces
 
-Codespaces uses `devcontainer.json` natively — the same file that works locally works in Codespaces.
+Codespaces uses `devcontainer.json` natively: the same file that works locally works in Codespaces.
 
 ### Codespaces-Specific Configuration
 
@@ -302,7 +302,7 @@ Enterprise organisations can restrict Codespaces to specific geographic regions 
 
 ---
 
-## DevPod — Provider-Agnostic Dev Environments
+## DevPod: Provider-Agnostic Dev Environments
 
 [DevPod](https://devpod.sh/) is an open-source, client-only tool that runs dev containers on any backend (local Docker, AWS, Azure, GCP, Kubernetes, SSH).
 
@@ -346,7 +346,7 @@ devpod up . --provider kubernetes
 
 ### IDE Integration
 
-DevPod manages SSH automatically — connect any IDE:
+DevPod manages SSH automatically, so any IDE can connect:
 
 ```bash
 # Open in VS Code

@@ -2,10 +2,10 @@
 
 # zellij
 
-Configure and operate zellij terminal multiplexer sessions. Use when setting up zellij shell integration, creating or attaching sessions, managing pane/tab workflows, restoring work after disconnects, or optimising terminal workflows for AI agents. Also use for directory-driven auto-enter rules, project-local autostart through mise, a yazi pane that changes the shell directory, mouse scrolling in stacked panes, or unreadable contrast in a ChromeOS terminal. Do NOT use for tmux persistence across reboots (use tmux-persist) or for mise tasks in general (use mise).
+Configures and operates zellij terminal multiplexer sessions. Use when setting up zellij shell integration, creating or attaching sessions, managing pane and tab workflows, restoring work after disconnects, or optimising terminal workflows for AI agents. Also use for directory-driven auto-enter rules, project-local autostart through mise, a yazi pane that changes the shell directory, mouse scrolling in stacked panes, or unreadable contrast in a ChromeOS terminal. Do NOT use for tmux, including keeping tmux sessions across reboots (use tmux-persist), or for mise tasks in general (use mise).
 
 - **Entry point:** [SKILL.md](SKILL.md)
-- **Version:** 1.1.0
+- **Version:** 2.0.0
 - **Licence:** Apache-2.0, see [LICENSE](LICENSE)
 
 ## Install
@@ -29,4 +29,4 @@ Loaded on demand, not up front. SKILL.md routes to them.
 ## Part of a larger set
 
 One of the Developer environment skills (`claude-skills-dev-environment`). See the [group's list](../../README.md),
-or every group in [claude-skills](https://github.com/markpitt/claude-skills).
+or every group in [claude-skills](https://markpitt.dev/claude-skills/).

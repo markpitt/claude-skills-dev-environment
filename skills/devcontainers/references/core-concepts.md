@@ -8,7 +8,7 @@ Reference for `devcontainer.json` structure, properties, and lifecycle managemen
 
 A **development container** is a Docker-based environment defined as code. The `devcontainer.json` file is a metadata manifest telling supporting tools (VS Code, GitHub Codespaces, JetBrains, the Dev Container CLI) how to build, start, and configure a containerised development environment.
 
-Key distinction: `devcontainer.json` *enriches* a container for development — adding IDE settings, extensions, user permissions, and lifecycle automation that don't belong in production images.
+Key distinction: `devcontainer.json` *enriches* a container for development, adding IDE settings, extensions, user permissions, and lifecycle automation that don't belong in production images.
 
 ---
 
@@ -24,7 +24,7 @@ Tools search for configuration in this order:
 
 Use subfolders for **monorepos** with multiple environments (e.g. `.devcontainer/backend/`, `.devcontainer/frontend/`).
 
-The file uses **JSONC** (JSON with Comments) format — `//` and `/* */` comments are allowed.
+The file uses **JSONC** (JSON with Comments) format: `//` and `/* */` comments are allowed.
 
 ---
 
@@ -32,7 +32,7 @@ The file uses **JSONC** (JSON with Comments) format — `//` and `/* */` comment
 
 Every `devcontainer.json` must declare exactly one environment source:
 
-### `image` — Simplest
+### `image`: Simplest
 
 ```jsonc
 {
@@ -42,7 +42,7 @@ Every `devcontainer.json` must declare exactly one environment source:
 
 References a pre-built image from a registry. Best for quick starts and teams using pre-built base images.
 
-### `build` — Custom Dockerfile
+### `build`: Custom Dockerfile
 
 ```jsonc
 {
@@ -58,7 +58,7 @@ References a pre-built image from a registry. Best for quick starts and teams us
 - `context`: Build context (defaults to `.devcontainer/`)
 - `args`: Build arguments passed to `ARG` instructions
 
-### `dockerComposeFile` — Multi-Container
+### `dockerComposeFile`: Multi-Container
 
 ```jsonc
 {
@@ -79,14 +79,14 @@ Add modular tools without writing Dockerfile instructions:
 ```jsonc
 {
   "features": {
-    "ghcr.io/devcontainers/features/node:1": { "version": "20" },
+    "ghcr.io/devcontainers/features/node:1": { "version": "24" },
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   }
 }
 ```
 
-- Always **pin a major version** (`:1`, `:2`) — never use `:latest`
+- Always **pin a major version** (`:1`, `:2`): never use `:latest`
 - Control install order with `overrideFeatureInstallOrder` if one Feature depends on another
 
 See `references/features-templates.md` for authoring and advanced usage.
@@ -151,7 +151,7 @@ All hooks accept three forms:
 }
 ```
 
-**Variable substitution** — supported in many string properties:
+**Variable substitution**: supported in many string properties:
 
 | Variable | Value |
 |----------|-------|
@@ -211,7 +211,7 @@ All hooks accept three forms:
 
 ---
 
-## VS Code Customizations
+## VS Code Customisations
 
 ```jsonc
 {
@@ -242,7 +242,7 @@ All hooks accept three forms:
 | `workspaceFolder` | string | In-container path where the workspace is mounted |
 | `workspaceMount` | string | Override the default workspace mount |
 | `runArgs` | array | Extra `docker run` arguments (e.g. `["--cap-add=SYS_PTRACE"]`) |
-| `shutdownAction` | string | `"none"` or `"stopContainer"` — what happens when IDE disconnects |
+| `shutdownAction` | string | `"none"` or `"stopContainer"`: what happens when IDE disconnects |
 | `hostRequirements` | object | Minimum host CPU, memory, storage, GPU |
 | `privileged` | boolean | Run in privileged mode (required for DinD; use with caution) |
 | `capAdd` | array | Add Linux capabilities without full `privileged` (e.g. `["SYS_PTRACE"]`) |
@@ -257,7 +257,7 @@ All hooks accept three forms:
 ```jsonc
 {
   "name": "Node.js App",
-  "image": "mcr.microsoft.com/devcontainers/node:20",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:24",
   "customizations": {
     "vscode": { "extensions": ["dbaeumer.vscode-eslint"] }
   },

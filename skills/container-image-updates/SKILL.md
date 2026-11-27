@@ -1,9 +1,9 @@
 ---
 name: container-image-updates
-description: Check a Docker Compose stack's images for newer releases without pulling them, read the release notes for breaking changes and one-way migrations, check version coupling between services, then pin the chosen versions by tag and digest, back up, deploy, verify and keep a rollback ready. Queries Docker Hub, GHCR and other OCI registries over their HTTP APIs with anonymous pull tokens, and resolves the multi-architecture index digest. Use when asked whether a stack has updates, to update or pin an image, to move images off moving tags such as latest or main, or after a deploy that did not pick up a new image. Do NOT use for building or publishing your own images, for automatic updaters such as Watchtower or Renovate, or for Kubernetes rollouts.
+description: Checks a Docker Compose stack's images for newer releases without pulling them, reads the release notes for breaking changes and one-way migrations, checks version coupling between services, then pins the chosen versions by tag and digest, backs up, deploys, verifies and keeps a rollback ready. Queries Docker Hub, GHCR and other OCI registries over their HTTP APIs with anonymous pull tokens, and resolves the multi-architecture index digest. Use when asked whether a stack has updates, to update or pin an image, to move images off moving tags such as latest or main, or after a deploy that did not pick up a new image. Do NOT use for building or publishing your own images, for automatic updaters such as Watchtower or Renovate, or for Kubernetes rollouts.
 license: Apache-2.0
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   tags: "docker, compose, images, registry, oci, digest, pinning, upgrades, ghcr, docker-hub, rollback, release-notes"
 ---
 

@@ -15,7 +15,7 @@ Ground recommendations in official documentation:
   - Use when TeX-level typographic control is needed.
 - `tectonic`
   - Best for CI-friendly LaTeX workflows with simpler setup.
-  - Good when deterministic automation is more important than TeX customization depth.
+  - Good when deterministic automation is more important than TeX customisation depth.
 - `weasyprint`
   - Best when CSS Paged Media/web-print parity is required.
   - Validate feature support per pinned version.

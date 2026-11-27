@@ -14,7 +14,7 @@ export SOURCE_DATE_EPOCH=1700000000
 pandoc --defaults pdf.defaults.yaml docs/intro.md docs/architecture.md docs/usage.md
 ```
 
-## Hook Behavior Policy
+## Hook Behaviour Policy
 
 For optional PDF artifacts:
 
@@ -29,7 +29,7 @@ For mandatory PDF artifacts:
 ## Tool Bootstrap Guidance
 
 - Prefer project runtime manager (`mise`) when available.
-- Alternative: containerized `pandoc` for consistent automation environments.
+- Alternative: containerised `pandoc` for consistent automation environments.
 
 ## Operational Notes
 
